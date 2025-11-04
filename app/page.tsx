@@ -170,14 +170,14 @@ export default function Page() {
           borderRadius: 8,
         }}
       >
-        <strong style={{ display: "block", marginBottom: 6 }}>You're entering a simulated intake conversation.</strong>
+        <strong style={{ display: "block", marginBottom: 6 }}>You&apos;re entering a simulated intake conversation.</strong>
         <p style={{ margin: 0, color: "#444", lineHeight: 1.5 }}>
           Please respond just as you would if you were completing intake with a licensed mental health professional.
           Share your concerns, history, and goals candidly so we can capture an authentic intake experience.
         </p>
       </div>
       <p style={{ color: "#666", marginTop: 16 }}>
-        Press Start to begin. Your microphone stays off until you click Start. When you're finished, press End & Submit to
+        Press Start to begin. Your microphone stays off until you click Start. When you&apos;re finished, press End & Submit to
         move on to the follow-up survey.
       </p>
 
