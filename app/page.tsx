@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useConversation } from "@elevenlabs/react";
 
 const MIN_DURATION_SECONDS = 360; // 6 minutes
-const TYPEFORM_URL = "https://forms.pelagohealth.com/to/HeWbfjHj";
+const TYPEFORM_URL = "https://forms.pelagohealth.com/to/gSCYcfvG";
 
 export default function Page() {
   const [status, setStatus] = useState<"disconnected" | "connecting" | "connected">("disconnected");
