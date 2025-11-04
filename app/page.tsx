@@ -49,7 +49,11 @@ export default function Page() {
   });
 
   const requestMic = useCallback(async () => {
-    if (mediaStreamRef.current) return;
+    // Always clean up old stream before requesting new one
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      mediaStreamRef.current = null;
+    }
     try {
       mediaStreamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (error) {
@@ -73,6 +77,10 @@ export default function Page() {
   }, []);
 
   const handleStart = useCallback(async () => {
+    // Clean up any existing state first
+    stopTimer();
+    stopMic();
+
     setErrorMessage(null);
     setShowCompletion(false);
     setLines([]);
@@ -95,9 +103,10 @@ export default function Page() {
     } catch (error) {
       console.error("Failed to start conversation:", error);
       setStatus("disconnected");
+      stopMic();
       setErrorMessage("Failed to start the conversation. Please try again.");
     }
-  }, [conversation, requestMic]);
+  }, [conversation, requestMic, stopTimer, stopMic]);
 
   const handleEnd = useCallback(async () => {
     try {
