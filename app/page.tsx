@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useConversation } from "@elevenlabs/react";
 
 const MIN_DURATION_SECONDS = 360; // 6 minutes
-const PROLIFIC_CODE = "CZL12H8O";
-const PROLIFIC_REDIRECT_URL = "https://app.prolific.com/submissions/complete?cc=CZL12H8O";
+const TYPEFORM_URL = "https://forms.pelagohealth.com/to/HeWbfjHj";
 
 export default function Page() {
   const [status, setStatus] = useState<"disconnected" | "connecting" | "connected">("disconnected");
@@ -121,6 +120,10 @@ export default function Page() {
       if (elapsedSeconds >= MIN_DURATION_SECONDS) {
         setShowCompletion(true);
         setErrorMessage(null);
+        // Auto-redirect to Typeform after 2 seconds
+        setTimeout(() => {
+          window.location.href = TYPEFORM_URL;
+        }, 2000);
       } else {
         const minutesElapsed = Math.floor(elapsedSeconds / 60);
         const secondsElapsed = elapsedSeconds % 60;
@@ -159,7 +162,7 @@ export default function Page() {
     <main style={{ maxWidth: 680, margin: "2rem auto", padding: 16, fontFamily: "system-ui" }}>
       <h1>Voice Study</h1>
       <p style={{ color: "#666" }}>
-        Press Start to begin the conversation. Your microphone will remain off until you click Start.
+        Press Start to begin the conversation. Your microphone will remain off until you click Start. Press End & Submit after your conversation to continue to a survey.
       </p>
 
       <div style={{ display: "flex", gap: 8, margin: "12px 0", alignItems: "center" }}>
@@ -236,35 +239,13 @@ export default function Page() {
             padding: 16,
             border: "1px solid #0a0",
             background: "#f6fff6",
+            textAlign: "center",
           }}
         >
-          <div style={{ marginBottom: 12 }}>
-            <strong>Prolific completion code:</strong>{" "}
-            <code
-              style={{
-                background: "#e0e0e0",
-                padding: "4px 8px",
-                borderRadius: 4,
-                fontSize: "16px",
-              }}
-            >
-              {PROLIFIC_CODE}
-            </code>
-          </div>
-          <button
-            onClick={() => window.open(PROLIFIC_REDIRECT_URL, "_blank")}
-            style={{
-              padding: "10px 20px",
-              fontSize: "16px",
-              background: "#0070f3",
-              color: "white",
-              border: "none",
-              borderRadius: 5,
-              cursor: "pointer",
-            }}
-          >
-            Redirect to Prolific
-          </button>
+          <p style={{ fontSize: "18px", marginBottom: 8 }}>
+            <strong>Thank you for completing the conversation!</strong>
+          </p>
+          <p style={{ color: "#666" }}>Redirecting you to the survey...</p>
         </div>
       )}
     </main>
