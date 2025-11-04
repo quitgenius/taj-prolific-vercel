@@ -160,9 +160,25 @@ export default function Page() {
 
   return (
     <main style={{ maxWidth: 680, margin: "2rem auto", padding: 16, fontFamily: "system-ui" }}>
-      <h1>Voice Study</h1>
-      <p style={{ color: "#666" }}>
-        Press Start to begin the conversation. Your microphone will remain off until you click Start. Press End & Submit after your conversation to continue to a survey.
+      <h1>Mental Health Intake Voice Study</h1>
+      <div
+        style={{
+          marginTop: 12,
+          border: "1px solid #c4d2ff",
+          background: "#f3f6ff",
+          padding: "12px 16px",
+          borderRadius: 8,
+        }}
+      >
+        <strong style={{ display: "block", marginBottom: 6 }}>You're entering a simulated intake conversation.</strong>
+        <p style={{ margin: 0, color: "#444", lineHeight: 1.5 }}>
+          Please respond just as you would if you were completing intake with a licensed mental health professional.
+          Share your concerns, history, and goals candidly so we can capture an authentic intake experience.
+        </p>
+      </div>
+      <p style={{ color: "#666", marginTop: 16 }}>
+        Press Start to begin. Your microphone stays off until you click Start. When you're finished, press End & Submit to
+        move on to the follow-up survey.
       </p>
 
       <div style={{ display: "flex", gap: 8, margin: "12px 0", alignItems: "center" }}>
