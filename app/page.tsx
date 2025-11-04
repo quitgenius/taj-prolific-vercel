@@ -133,6 +133,16 @@ export default function Page() {
   }, [conversation, elapsedSeconds, stopTimer, stopMic]);
 
   useEffect(() => {
+    // Clear any stale browser storage on mount
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {
+        console.warn('Could not clear storage:', e);
+      }
+    }
+
     return () => {
       stopTimer();
       stopMic();
