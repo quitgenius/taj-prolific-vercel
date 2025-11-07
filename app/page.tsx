@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useConversation } from "@elevenlabs/react";
 import { useSearchParams } from "next/navigation";
 
 const MIN_DURATION_SECONDS = 360; // 6 minutes
 const TYPEFORM_URL = "https://forms.pelagohealth.com/to/gSCYcfvG";
 
-export default function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   const agentId = searchParams.get("agentId");
 
@@ -270,5 +270,13 @@ export default function Page() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div style={{ maxWidth: 680, margin: "2rem auto", padding: 16 }}>Loading...</div>}>
+      <PageContent />
+    </Suspense>
   );
 }
