@@ -2,11 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useConversation } from "@elevenlabs/react";
+import { useSearchParams } from "next/navigation";
 
 const MIN_DURATION_SECONDS = 360; // 6 minutes
 const TYPEFORM_URL = "https://forms.pelagohealth.com/to/gSCYcfvG";
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const agentId = searchParams.get("agentId");
+
   const [status, setStatus] = useState<"disconnected" | "connecting" | "connected">("disconnected");
   const [lines, setLines] = useState<string[]>([]);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -89,7 +93,8 @@ export default function Page() {
     try {
       await requestMic();
 
-      const tokenResponse = await fetch("/api/token", { cache: "no-store" });
+      const url = agentId ? `/api/token?agentId=${encodeURIComponent(agentId)}` : "/api/token";
+      const tokenResponse = await fetch(url, { cache: "no-store" });
       if (!tokenResponse.ok) {
         throw new Error("Failed to get conversation token");
       }
@@ -105,7 +110,7 @@ export default function Page() {
       stopMic();
       setErrorMessage("Failed to start the conversation. Please try again.");
     }
-  }, [conversation, requestMic, stopTimer, stopMic]);
+  }, [conversation, requestMic, stopTimer, stopMic, agentId]);
 
   const handleEnd = useCallback(async () => {
     try {

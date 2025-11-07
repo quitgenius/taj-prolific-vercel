@@ -1,12 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const agentId = process.env.AGENT_ID;
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const agentId = searchParams.get("agentId") || process.env.AGENT_ID;
   const apiKey = process.env.XI_API_KEY;
 
   if (!agentId || !apiKey) {
     return NextResponse.json(
-      { error: "Missing AGENT_ID or XI_API_KEY in environment variables" },
+      { error: "Missing agentId parameter or AGENT_ID in environment variables, or XI_API_KEY" },
       { status: 500 }
     );
   }
